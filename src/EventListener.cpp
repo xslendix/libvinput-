@@ -39,6 +39,9 @@ void EventListener::start(void (*keyboard_callback)(KeyboardEvent),
 }
 
 void EventListener::destroy(void) {
+	if (!m_event_listener)
+		return;
+
 	auto err = EventListener_free(reinterpret_cast<::EventListener *>(m_event_listener));
 	if (err != VINPUT_OK)
 		throw std::runtime_error(VInput_error_get_message(err));
